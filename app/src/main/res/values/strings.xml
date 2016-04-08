@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BikeLock</string>
+    <string name="Get">GET</string>
+    <string name="cb_agree">同意</string>
+</resources>
