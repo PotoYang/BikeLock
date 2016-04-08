@@ -1,14 +1,47 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.potoyang.bikelock.LoadingActivity">
+    android:id="@+id/splash_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <ImageView
+    <!--背景颜色-->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/lm324" />
+        android:background="@color/background_color"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!--logo图片-->
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/lm324" />
+
+        <!--软件名称-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:gravity="bottom"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="30dip" />
+
+        <!--版本信息-->
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:textColor="@color/white"
+            android:textSize="18dip" />
+
+    </LinearLayout>
 
 </LinearLayout>
