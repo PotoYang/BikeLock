@@ -12,6 +12,7 @@ import java.util.Map;
  * @FileName: com.example.potoyang.bikelock.SendDataToServer.java
  * @author: Yuchuan Yang
  * @data:2016-04-04 22:02
+ * @Description: 发送数据到服务器
  */
 public class SendDataToServer {
     private static String url =

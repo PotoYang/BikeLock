@@ -1,4 +1,4 @@
-package com.example.potoyang.bikelock;
+package com.example.potoyang.bikelock.Activity;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +19,8 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.example.potoyang.bikelock.R;
+import com.example.potoyang.bikelock.SendDataToServer;
 import com.example.potoyang.bikelock.view.satallite_view.SatelliteMenu;
 import com.example.potoyang.bikelock.view.satallite_view.SatelliteMenuItem;
 

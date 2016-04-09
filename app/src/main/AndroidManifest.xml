@@ -50,17 +50,17 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="30V4yQ3VWfHbRnoBcS2FGNiYS58APvHR" />
 
-        <activity android:name=".LoadingActivity">
+        <activity android:name=".Activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AnimationActivity" />
-        <activity android:name=".MapActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ProtocolActivity"></activity>
+        <activity android:name=".Activity.AnimationActivity" />
+        <activity android:name=".Activity.MapActivity" />
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.ProtocolActivity"></activity>
 
         <!-- 声明百度定位API的定位服务 -->
         <service

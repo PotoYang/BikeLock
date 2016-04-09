@@ -1,13 +1,16 @@
-package com.example.potoyang.bikelock;
+package com.example.potoyang.bikelock.Activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.potoyang.bikelock.R;
 
 import java.util.ArrayList;
 
@@ -111,5 +114,16 @@ public class AnimationActivity extends AppCompatActivity {
         startActivity(intent);
         this.finish();
 
+    }
+
+    /**
+     * 屏蔽返回键，防止在动画加载过程中退出
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return false;
+        }
+        return false;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.potoyang.bikelock;
+package com.example.potoyang.bikelock.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,23 +13,25 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.potoyang.bikelock.R;
+
 /**
- * @ClassName: com.example.potoyang.bikelock.LoadingActivity
+ * @ClassName: com.example.potoyang.bikelock.Activity.LoadingActivity
  * @Author: PotoYang
  * @Time: 2016/4/8 21:00
- * @Description: app启动画面
+ * @Description: app启动画面，使用Animation实现界面颜色的渐变
  */
 public class LoadingActivity extends AppCompatActivity {
 
     private LinearLayout ll;
-    private TextView tv_version;
+    private TextView tv_version;//显示版本信息
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //AndroidStudio隐藏标题栏由于是继承至AppCompatActivity不一样
         getSupportActionBar().hide();
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);  //去掉信息栏，全屏
 
         setContentView(R.layout.activity_loading);
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class LoadingActivity extends AppCompatActivity {
         tv_version = (TextView) findViewById(R.id.tv_version);
 
         tv_version.setText(getVersion());
+
         //设置亮度渐变,从0.0到1.0
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.alpha);
         ll.startAnimation(animation);
@@ -54,6 +57,7 @@ public class LoadingActivity extends AppCompatActivity {
 
                 //SharedPreferences存储以键值对的方式存储
                 //getSharedPreferences的第一个参数就是文件名称
+                //检测app是否是第一次运行，如果是进入引导界面，不是直接进入Main
                 SharedPreferences sharedPreferences = getSharedPreferences("share", MODE_PRIVATE);
                 boolean isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -77,7 +81,7 @@ public class LoadingActivity extends AppCompatActivity {
      * @MethodName: getVersion
      * @Author: PotoYang
      * @Time: 2016/4/8 20:59
-     * @Description: 获得app版本信息
+     * @Description: 获得本地app版本信息
      */
     private String getVersion() {
         PackageManager pm = getPackageManager();
@@ -107,7 +111,7 @@ public class LoadingActivity extends AppCompatActivity {
      * @MethodName: startMapActivity
      * @Author: PotoYang
      * @Time: 2016/4/8 21:01
-     * @Description: 跳转到startMapActivity
+     * @Description: 跳转到MapActivity
      */
     private void startMapActivity() {
         Intent intent = new Intent(this, MapActivity.class);
@@ -116,7 +120,7 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     /**
-     * 屏蔽返回键
+     * 屏蔽返回键，防止在动画加载过程中退出
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
