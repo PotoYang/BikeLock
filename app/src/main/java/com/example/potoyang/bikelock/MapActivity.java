@@ -19,6 +19,11 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.example.potoyang.bikelock.view.satallite_view.SatelliteMenu;
+import com.example.potoyang.bikelock.view.satallite_view.SatelliteMenuItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapActivity extends AppCompatActivity {
 
@@ -51,7 +56,69 @@ public class MapActivity extends AppCompatActivity {
         }
     };
 
-    public BDLocationListener myListener = new BDLocationListener() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
+
+        setContentView(R.layout.activity_map);
+
+        SatelliteMenu menu = (SatelliteMenu) findViewById(R.id.menu);
+
+//		  Set from XML, possible to programmatically set
+//        float distance = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 170, getResources().getDisplayMetrics());
+//        menu.setSatelliteDistance((int) distance);
+//        menu.setExpandDuration(500);
+//        menu.setCloseItemsOnClick(false);
+//        menu.setTotalSpacingDegree(60);
+
+        List<SatelliteMenuItem> items = new ArrayList<SatelliteMenuItem>();
+        items.add(new SatelliteMenuItem(1, R.drawable.ic_item01));
+        items.add(new SatelliteMenuItem(2, R.drawable.ic_item02));
+        items.add(new SatelliteMenuItem(3, R.drawable.ic_item03));
+        items.add(new SatelliteMenuItem(4, R.drawable.ic_item04));
+        items.add(new SatelliteMenuItem(5, R.drawable.ic_item05));
+        items.add(new SatelliteMenuItem(6, R.drawable.ic_item06));
+//        items.add(new SatelliteMenuItem(5, R.drawable.sat_item));
+        menu.addItems(items);
+
+        menu.setOnItemClickedListener(new SatelliteMenu.SateliteClickedListener() {
+
+            public void eventOccured(int id) {
+                Toast.makeText(MapActivity.this, "" + id, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        mMapView = (MapView) findViewById(R.id.bmapView);
+        tv_lon = (TextView) findViewById(R.id.tv_lon);
+        tv_lat = (TextView) findViewById(R.id.tv_lat);
+        btn_location = (Button) findViewById(R.id.btn_location);
+
+        mBaiduMap = mMapView.getMap();
+        mMapView.showZoomControls(false);
+
+        //开启定位图层
+        mBaiduMap.setMyLocationEnabled(true);
+
+        mLocationClient = new LocationClient(getApplicationContext());
+        mLocationClient.registerLocationListener(myListener);
+        this.setLocationOption();
+        mLocationClient.start();
+
+        btn_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getMyLocation();
+            }
+        });
+
+    }
+
+    private BDLocationListener myListener = new BDLocationListener() {
         @Override
         public void onReceiveLocation(BDLocation location) {
             // map view 销毁后不在处理新接收的位置
@@ -60,7 +127,7 @@ public class MapActivity extends AppCompatActivity {
 
             MyLocationData locData = new MyLocationData.Builder()
                     .accuracy(location.getRadius())
-                            // 此处设置开发者获取到的方向信息，顺时针0-360
+                    // 此处设置开发者获取到的方向信息，顺时针0-360
                     .direction(100).latitude(location.getLatitude())
                     .longitude(location.getLongitude()).build();
             mBaiduMap.setMyLocationData(locData);    //设置定位数据
@@ -90,41 +157,6 @@ public class MapActivity extends AppCompatActivity {
 
         }
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
-
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
-
-        setContentView(R.layout.activity_map);
-
-        mMapView = (MapView) findViewById(R.id.bmapView);
-        tv_lon = (TextView) findViewById(R.id.tv_lon);
-        tv_lat = (TextView) findViewById(R.id.tv_lat);
-        btn_location = (Button) findViewById(R.id.btn_location);
-
-        mBaiduMap = mMapView.getMap();
-        mMapView.showZoomControls(false);
-
-        //开启定位图层
-        mBaiduMap.setMyLocationEnabled(true);
-
-        mLocationClient = new LocationClient(getApplicationContext());
-        mLocationClient.registerLocationListener(myListener);
-        this.setLocationOption();
-        mLocationClient.start();
-
-        btn_location.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getMyLocation();
-            }
-        });
-
-    }
 
     // 返回到我的位置
     private void getMyLocation() {
