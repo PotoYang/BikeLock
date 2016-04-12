@@ -21,7 +21,7 @@
             android:paddingLeft="20dip"
             android:paddingRight="20dip"
             android:scaleType="centerInside"
-            android:src="@drawable/lm324" />
+            android:src="@mipmap/lm324" />
 
         <!--软件名称-->
         <TextView

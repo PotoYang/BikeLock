@@ -80,17 +80,17 @@ public class AnimationActivity extends AppCompatActivity {
         public void onPageSelected(int arg0) {
             switch (arg0) {
                 case 0:
-                    mPage0.setImageDrawable(getResources().getDrawable(R.drawable.page_now));
-                    mPage1.setImageDrawable(getResources().getDrawable(R.drawable.page));
+                    mPage0.setImageDrawable(getResources().getDrawable(R.mipmap.page_now));
+                    mPage1.setImageDrawable(getResources().getDrawable(R.mipmap.page));
                     break;
                 case 1:
-                    mPage1.setImageDrawable(getResources().getDrawable(R.drawable.page_now));
-                    mPage0.setImageDrawable(getResources().getDrawable(R.drawable.page));
-                    mPage2.setImageDrawable(getResources().getDrawable(R.drawable.page));
+                    mPage1.setImageDrawable(getResources().getDrawable(R.mipmap.page_now));
+                    mPage0.setImageDrawable(getResources().getDrawable(R.mipmap.page));
+                    mPage2.setImageDrawable(getResources().getDrawable(R.mipmap.page));
                     break;
                 case 2:
-                    mPage2.setImageDrawable(getResources().getDrawable(R.drawable.page_now));
-                    mPage1.setImageDrawable(getResources().getDrawable(R.drawable.page));
+                    mPage2.setImageDrawable(getResources().getDrawable(R.mipmap.page_now));
+                    mPage1.setImageDrawable(getResources().getDrawable(R.mipmap.page));
                     break;
             }
             currIndex = arg0;

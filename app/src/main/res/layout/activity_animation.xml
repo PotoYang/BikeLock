@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="matrix"
-                android:src="@drawable/page_now" />
+                android:src="@mipmap/page_now" />
 
             <ImageView
                 android:id="@+id/page1"
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:scaleType="matrix"
-                android:src="@drawable/page" />
+                android:src="@mipmap/page" />
 
             <ImageView
                 android:id="@+id/page2"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:scaleType="matrix"
-                android:src="@drawable/page" />
+                android:src="@mipmap/page" />
 
         </LinearLayout>
 

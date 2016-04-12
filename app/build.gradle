@@ -24,4 +24,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile files('libs/BaiduLBS_Android.jar')
+    compile project(':library_SlidingMenu')
+    compile('in.srain.cube:cube-sdk:1.0.42.1') {
+        exclude module: 'support-v4'
+    }
 }

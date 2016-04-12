@@ -7,5 +7,5 @@
         android:layout_height="50dp"
         android:layout_gravity="bottom|left"
         android:contentDescription="@string/empty"
-        android:src="@drawable/sat_main" />
+        android:src="@mipmap/sat_main" />
 </merge>

@@ -5,5 +5,5 @@
     android:layout_height="40dp"
     android:layout_gravity="bottom|left"
     android:contentDescription="@string/empty"
-    android:src="@drawable/sat_item"
+    android:src="@mipmap/sat_item"
     android:visibility="gone" />
