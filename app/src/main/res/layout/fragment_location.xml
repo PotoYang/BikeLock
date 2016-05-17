@@ -8,10 +8,6 @@
     android:orientation="vertical"
     tools:context=".Activity.MapActivity">
 
-    <include
-        android:id="@+id/title"
-        layout="@layout/topbar" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

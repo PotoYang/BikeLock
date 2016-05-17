@@ -1,12 +1,13 @@
-package com.example.potoyang.bikelock.Activity;
+package com.example.potoyang.bikelock.Fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,25 +25,17 @@ import com.example.potoyang.bikelock.R;
 import com.example.potoyang.bikelock.SendDataToServer;
 import com.example.potoyang.bikelock.view.satallite_view.SatelliteMenu;
 import com.example.potoyang.bikelock.view.satallite_view.SatelliteMenuItem;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @ClassName: MapActivity
- * @author: Yuchuan Yang
- * @time: 2016/4/12 22:39
- * @Description: 显示地图
- */
-public class MapActivity extends AppCompatActivity {
+public class LocationFragment extends Fragment {
 
     private String strlat, strlon;//向服务器发送的数据
 
     //一般控件声明
     private TextView tv_lon, tv_lat;
     private Button btn_location;
-    private ImageView iv_headphoto;
 
     private MapView mMapView = null;
     private BaiduMap mBaiduMap = null;
@@ -52,41 +45,16 @@ public class MapActivity extends AppCompatActivity {
     private double mLatitude, mLongitude;
     boolean isFirstLoc = true;// 是否首次定位
 
-    //滑动菜单
-    private SlidingMenu slidingMenu = null;
-
     //卫星菜单
     private SatelliteMenu satelliteMenu = null;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
-        setContentView(R.layout.activity_map);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_location, null, false);
 
-        initData();
-
-        iv_headphoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                slidingMenu.showMenu();
-            }
-        });
-
-        initSlidingMenu();
+        initData(view);
 
         initSatelliteMenu();
-
-        satelliteMenu.setOnItemClickedListener(new SatelliteMenu.SateliteClickedListener() {
-
-            public void eventOccured(int id) {
-                Toast.makeText(MapActivity.this, "" + id, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        initMap();
 
         btn_location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,23 +63,18 @@ public class MapActivity extends AppCompatActivity {
             }
         });
 
-    }
+        satelliteMenu.setOnItemClickedListener(new SatelliteMenu.SateliteClickedListener() {
 
-    //取得SendDataToServer的数据
-    Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case SendDataToServer.SEND_SUCCESS:
-                    // Toast.makeText(MapActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                    break;
-                case SendDataToServer.SEND_FAIL:
-                    Toast.makeText(MapActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    break;
+            public void eventOccured(int id) {
+                Toast.makeText(getContext(), "" + id, Toast.LENGTH_SHORT).show();
             }
-        }
-    };
+        });
+
+        //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
+
+        return view;
+    }
 
     /**
      * @MethodName: initData
@@ -121,34 +84,23 @@ public class MapActivity extends AppCompatActivity {
      * @return: void
      * @Description: 初始化Data
      */
-    private void initData() {
-        iv_headphoto = (ImageView) findViewById(R.id.iv_headphoto);
-        satelliteMenu = (SatelliteMenu) findViewById(R.id.menu);
+    private void initData(View view) {
+        tv_lon = (TextView) view.findViewById(R.id.tv_lon);
+        tv_lat = (TextView) view.findViewById(R.id.tv_lat);
+        btn_location = (Button) view.findViewById(R.id.btn_location);
+        satelliteMenu = (SatelliteMenu) view.findViewById(R.id.menu);
+        mMapView = (MapView) view.findViewById(R.id.bmapView);
 
-        mMapView = (MapView) findViewById(R.id.bmapView);
-        tv_lon = (TextView) findViewById(R.id.tv_lon);
-        tv_lat = (TextView) findViewById(R.id.tv_lat);
-        btn_location = (Button) findViewById(R.id.btn_location);
-    }
+        mBaiduMap = mMapView.getMap();
+        mMapView.showZoomControls(false);
 
-    /**
-     * @MethodName: initSlidingMenu
-     * @author: PotoYang
-     * @time: 2016/4/12 22:36
-     * @params: null
-     * @return: void
-     * @Description: 初始化SlidingMenu
-     */
-    private void initSlidingMenu() {
-        // View view=LayoutInflater.from(R.layout.right_drawer);
-        slidingMenu = new SlidingMenu(this);
+        //开启定位图层
+        mBaiduMap.setMyLocationEnabled(true);
 
-        slidingMenu.setMode(SlidingMenu.LEFT);
-        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN); // 触摸边界拖出菜单
-        slidingMenu.setMenu(R.layout.right_drawer);
-        slidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-        // 将抽屉菜单与主页面关联起来
-        slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        mLocationClient = new LocationClient(getContext());
+        mLocationClient.registerLocationListener(myListener);
+        this.setLocationOption();
+        mLocationClient.start();
     }
 
     /**
@@ -169,27 +121,6 @@ public class MapActivity extends AppCompatActivity {
         items.add(new SatelliteMenuItem(6, R.mipmap.ic_item06));
         satelliteMenu.addItems(items);
 
-    }
-
-    /**
-     * @MethodName: initMap
-     * @author: PotoYang
-     * @time: 2016/4/12 22:38
-     * @params: null
-     * @return: void
-     * @Description: 初始化Map
-     */
-    private void initMap() {
-        mBaiduMap = mMapView.getMap();
-        mMapView.showZoomControls(false);
-
-        //开启定位图层
-        mBaiduMap.setMyLocationEnabled(true);
-
-        mLocationClient = new LocationClient(getApplicationContext());
-        mLocationClient.registerLocationListener(myListener);
-        this.setLocationOption();
-        mLocationClient.start();
     }
 
     /**
@@ -252,9 +183,24 @@ public class MapActivity extends AppCompatActivity {
         mBaiduMap.animateMapStatus(msu);
     }
 
+    //取得SendDataToServer的数据
+    Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SendDataToServer.SEND_SUCCESS:
+                    break;
+                case SendDataToServer.SEND_FAIL:
+                    Toast.makeText(getContext(), "登陆失败", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
     // 三个状态实现地图生命周期管理
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         //退出时销毁定位
         mLocationClient.stop();
         mBaiduMap.setMyLocationEnabled(false);
@@ -265,11 +211,9 @@ public class MapActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        // TODO Auto-generated method stub
+    public void onResume() {
 //        /**
 //         * 设置为横屏
-//         */
 //        if(getRequestedOrientation()!= ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE){
 //            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 //        }
@@ -278,20 +222,8 @@ public class MapActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        // TODO Auto-generated method stub
+    public void onPause() {
         super.onPause();
         mMapView.onPause();
     }
-
-//    @Override
-//    public boolean onTouch(View view, MotionEvent motionEvent) {
-//        // TODO Auto-generated method stub
-//        Toast.makeText(MapActivity.this, "initOverlay", Toast.LENGTH_SHORT).show();
-//        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-//            LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
-//        }
-//        return false;
-//    }
-
 }

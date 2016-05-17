@@ -110,7 +110,7 @@ public class AnimationActivity extends AppCompatActivity {
 
     public void startbutton(View v) {
         Intent intent = new Intent();
-        intent.setClass(AnimationActivity.this, MapActivity.class);
+        intent.setClass(AnimationActivity.this, MainActivity.class);
         startActivity(intent);
         this.finish();
 

@@ -58,7 +58,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.AnimationActivity" />
-        <activity android:name=".Activity.MapActivity" />
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.ProtocolActivity"></activity>
 

@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class SendDataToServer {
     private static String url =
-            "http://192.168.1.140:8888/ServerForGetMethod/servlet/ServletForGetMethod";
+            "http://192.168.1.120:8888/ServerForGetMethod/servlet/ServletForGetMethod";
     public static final int SEND_SUCCESS = 0x123;
     public static final int SEND_FAIL = 0x124;
     private Handler handler;
@@ -32,6 +32,7 @@ public class SendDataToServer {
      * @param longitude 经度
      * @param latitude  纬度
      */
+
     public void SendDataToServer(String longitude, String latitude) {
         // TODO Auto-generated method stub
         final Map<String, String> map = new HashMap<String, String>();

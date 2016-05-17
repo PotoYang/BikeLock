@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ff393939"
+    android:background="@mipmap/left_draw_bg"
     android:orientation="vertical">
 
     <ScrollView
@@ -13,18 +13,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/pgc_btn"
-                style="@style/left_drawer_item_layout"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/pgc_name"
-                    style="@style/left_drawer_item_text" />
-            </RelativeLayout>
-
-            <ImageView style="@style/left_drawer_item_line" />
 
             <RelativeLayout
                 android:id="@+id/del"

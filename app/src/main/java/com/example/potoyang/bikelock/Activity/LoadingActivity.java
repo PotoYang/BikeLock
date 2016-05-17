@@ -114,7 +114,7 @@ public class LoadingActivity extends AppCompatActivity {
      * @Description: 跳转到MapActivity
      */
     private void startMapActivity() {
-        Intent intent = new Intent(this, MapActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
