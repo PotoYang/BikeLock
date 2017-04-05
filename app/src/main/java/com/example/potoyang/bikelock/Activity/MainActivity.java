@@ -47,7 +47,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         //切换选项
         selectItem(0);
-
     }
 
     /**
@@ -169,6 +168,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         // 将抽屉菜单与主页面关联起来
         slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
     }
+
 
     private void hideFragment(FragmentTransaction fragmentTransaction) {
         if (fg_sport != null) {

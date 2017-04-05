@@ -15,45 +15,45 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/del"
+                android:id="@+id/location"
                 style="@style/left_drawer_item_layout">
 
                 <TextView
                     style="@style/left_drawer_item_text"
-                    android:text="清除价格覆盖物" />
+                    android:text="车辆定位" />
             </RelativeLayout>
 
             <ImageView style="@style/left_drawer_item_line" />
 
             <RelativeLayout
-                android:id="@+id/draw"
+                android:id="@+id/unlock"
                 style="@style/left_drawer_item_layout">
 
                 <TextView
                     style="@style/left_drawer_item_text"
-                    android:text="画覆盖物" />
+                    android:text="蓝牙解锁" />
             </RelativeLayout>
 
             <ImageView style="@style/left_drawer_item_line" />
 
             <RelativeLayout
-                android:id="@+id/menu_search"
+                android:id="@+id/record"
                 style="@style/left_drawer_item_layout">
 
                 <TextView
                     style="@style/left_drawer_item_text"
-                    android:text="查询" />
+                    android:text="历史记录" />
             </RelativeLayout>
 
             <ImageView style="@style/left_drawer_item_line" />
 
             <RelativeLayout
-                android:id="@+id/favorite_btn"
+                android:id="@+id/infomation"
                 style="@style/left_drawer_item_layout">
 
                 <TextView
                     style="@style/left_drawer_item_text"
-                    android:text="消息" />
+                    android:text="获取资讯" />
             </RelativeLayout>
 
             <ImageView style="@style/left_drawer_item_line" />

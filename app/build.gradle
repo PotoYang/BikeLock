@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.example.potoyang.bikelock"
@@ -21,12 +21,16 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
     compile files('libs/BaiduLBS_Android.jar')
     compile project(':library_SlidingMenu')
     compile('in.srain.cube:cube-sdk:1.0.42.1') {
         exclude module: 'support-v4'
     }
+
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.github.a-voyager:BluetoothHelper:f71d40a98b'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
+    testCompile 'junit:junit:4.12'
+    compile 'com.akexorcist:bluetoothspp:1.0.0'
 }

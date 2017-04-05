@@ -38,6 +38,9 @@
     <!-- 允许应用读取低级别的系统日志文件 -->
     <uses-permission android:name="android.permission.READ_LOGS" />
 
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -45,10 +48,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="30V4yQ3VWfHbRnoBcS2FGNiYS58APvHR" />
+            android:value="Kf7azFWc7UAkYMx3VFgB7Bx4y3FvTPeI" />
 
         <activity android:name=".Activity.LoadingActivity">
             <intent-filter>
@@ -59,13 +61,16 @@
         </activity>
         <activity android:name=".Activity.AnimationActivity" />
         <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.ProtocolActivity"></activity>
+        <activity android:name=".Activity.ProtocolActivity" />
 
         <!-- 声明百度定位API的定位服务 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+
+        <activity android:name=".Bluetooth.BluetoothUnlockActivity" />
+
     </application>
 
 </manifest>

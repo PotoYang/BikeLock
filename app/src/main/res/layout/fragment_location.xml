@@ -45,14 +45,6 @@
             android:layout_marginEnd="50dp"
             android:background="@drawable/btn_location" />
 
-        <Button
-            android:id="@+id/btn_get"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/btn_location"
-            android:layout_below="@+id/tv_lon"
-            android:text="@string/Get" />
-
         <com.example.potoyang.bikelock.view.satallite_view.SatelliteMenu
             android:id="@+id/menu"
             android:layout_width="wrap_content"
@@ -64,6 +56,15 @@
             sat:expandDuration="500"
             sat:satelliteDistance="170dp"
             sat:totalSpacingDegree="90" />
+
+        <Button
+            android:id="@+id/btn_get"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Get"
+            android:layout_alignBaseline="@+id/tv_loc"
+            android:layout_alignBottom="@+id/tv_loc"
+            android:layout_alignStart="@+id/btn_location" />
 
     </RelativeLayout>
 

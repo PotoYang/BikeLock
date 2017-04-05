@@ -1,5 +1,6 @@
 package com.example.potoyang.bikelock.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,11 +22,21 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.example.potoyang.bikelock.Bluetooth.BluetoothUnlockActivity;
 import com.example.potoyang.bikelock.R;
 import com.example.potoyang.bikelock.SendDataToServer;
 import com.example.potoyang.bikelock.view.satallite_view.SatelliteMenu;
 import com.example.potoyang.bikelock.view.satallite_view.SatelliteMenuItem;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +61,7 @@ public class LocationFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_location, null, false);
+        final View view = inflater.inflate(R.layout.fragment_location, null, false);
 
         initData(view);
 
@@ -66,7 +77,15 @@ public class LocationFragment extends Fragment {
         satelliteMenu.setOnItemClickedListener(new SatelliteMenu.SateliteClickedListener() {
 
             public void eventOccured(int id) {
-                Toast.makeText(getContext(), "" + id, Toast.LENGTH_SHORT).show();
+                switch (id) {
+                    case 1:
+                        Intent intent = new Intent(view.getContext(), BluetoothUnlockActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        break;
+
+                }
             }
         });
 
@@ -96,11 +115,13 @@ public class LocationFragment extends Fragment {
 
         //开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
+        mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
 
         mLocationClient = new LocationClient(getContext());
         mLocationClient.registerLocationListener(myListener);
         this.setLocationOption();
         mLocationClient.start();
+
     }
 
     /**
@@ -113,12 +134,12 @@ public class LocationFragment extends Fragment {
      */
     private void initSatelliteMenu() {
         List<SatelliteMenuItem> items = new ArrayList<SatelliteMenuItem>();
-        items.add(new SatelliteMenuItem(1, R.mipmap.ic_item01));
-        items.add(new SatelliteMenuItem(2, R.mipmap.ic_item02));
-        items.add(new SatelliteMenuItem(3, R.mipmap.ic_item03));
-        items.add(new SatelliteMenuItem(4, R.mipmap.ic_item04));
-        items.add(new SatelliteMenuItem(5, R.mipmap.ic_item05));
-        items.add(new SatelliteMenuItem(6, R.mipmap.ic_item06));
+        items.add(new SatelliteMenuItem(6, R.mipmap.ic_item01));
+        items.add(new SatelliteMenuItem(5, R.mipmap.ic_item02));
+        items.add(new SatelliteMenuItem(4, R.mipmap.ic_item03));
+        items.add(new SatelliteMenuItem(3, R.mipmap.ic_item04));
+        items.add(new SatelliteMenuItem(2, R.mipmap.ic_item05));
+        items.add(new SatelliteMenuItem(1, R.mipmap.ic_item06));
         satelliteMenu.addItems(items);
 
     }
@@ -225,5 +246,46 @@ public class LocationFragment extends Fragment {
     public void onPause() {
         super.onPause();
         mMapView.onPause();
+    }
+
+    public static void getCityFromLngAndlat() throws IOException {
+        //通过修改这里的location（经纬度）参数，即可得到相应经纬度的详细信息
+        String url2 = "http://api.map.baidu.com/geocoder/v2/?ak=pmCgmADsAsD9rEXkqWNcTzjd&location=22.75424,112.76535&output=json&pois=1 ";
+        URL myURL2 = null;
+        URLConnection httpsConn2 = null;
+        try {
+            myURL2 = new URL(url2);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        InputStreamReader insr2 = null;
+        BufferedReader br2 = null;
+        try {
+            httpsConn2 = (URLConnection) myURL2.openConnection();// 不使用代理
+            if (httpsConn2 != null) {
+                insr2 = new InputStreamReader(httpsConn2.getInputStream(), "UTF-8");
+                br2 = new BufferedReader(insr2);
+                String data2 = br2.readLine();
+                try {
+                    //解析得到的json格式数据
+                    JSONObject dataJson = new JSONObject(data2);
+                    JSONObject result = dataJson.getJSONObject("result");
+                    JSONObject addressComponent = result.getJSONObject("addressComponent");
+                    String city = addressComponent.getString("city");
+                    System.out.println("city = " + city);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (insr2 != null) {
+                insr2.close();
+            }
+            /*if (br != null) {
+                br2.close();
+            }*/
+        }
     }
 }

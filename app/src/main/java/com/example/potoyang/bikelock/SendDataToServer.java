@@ -29,10 +29,9 @@ public class SendDataToServer {
     /**
      * 通过Get方式向服务器发送数据
      *
-     * @param longitude 经度
-     * @param latitude  纬度
+     * @param longitude
+     * @param latitude
      */
-
     public void SendDataToServer(String longitude, String latitude) {
         // TODO Auto-generated method stub
         final Map<String, String> map = new HashMap<String, String>();
@@ -60,8 +59,9 @@ public class SendDataToServer {
     /**
      * 发送GET请求
      *
-     * @param param 请求参数
-     * @param url   请求路径
+     * @param param
+     * @param url
+     * @param encoding
      * @return
      * @throws Exception
      */
@@ -76,7 +76,7 @@ public class SendDataToServer {
                 sb.append(URLEncoder.encode(entry.getValue(), encoding));
                 sb.append("&");
             }
-            sb.deleteCharAt(sb.length() - 1);//删除字符串最后 一个字符“&”
+            sb.deleteCharAt(sb.length() - 1);//删除字符串最后一个字符“&”
         }
         HttpURLConnection conn = (HttpURLConnection) new URL(sb.toString()).openConnection();
         conn.setConnectTimeout(5000);
