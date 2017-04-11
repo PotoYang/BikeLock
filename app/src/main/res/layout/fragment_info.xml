@@ -1,12 +1,325 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.potoyang.bikelock.Fragment.InfoFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
+        android:id="@+id/traffic_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="已接收到蓝牙信息:ABCDEF" />
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/traffic_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/rect_white_bg">
+
+            <ImageView
+                android:id="@+id/traffic_icon"
+                android:layout_width="26dp"
+                android:layout_height="28dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/service_traffic_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="45dp"
+                android:text="交通信息查询"
+                android:textColor="#4b4b47"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/traffic_arrow"
+                android:layout_width="12dp"
+                android:layout_height="6dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/service_arrow_down"
+                android:tag="service_arrow" />
+        </RelativeLayout>
+
+        <com.example.potoyang.bikelock.MyView.FoldingLayout
+            android:id="@+id/traffic_item"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:tag="service_item">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="#ff8e6b"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="热门景点查询"
+                        android:textColor="#d55a34"
+                        android:textSize="13dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="周边景点查询"
+                        android:textColor="#d55a34"
+                        android:textSize="13dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="自定义景点查询"
+                        android:textColor="#d55a34"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="实时路况查询"
+                        android:textColor="#d55a34"
+                        android:textSize="13dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="公共自行车查询"
+                        android:textColor="#d55a34"
+                        android:textSize="13dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="自行车道导航"
+                        android:textColor="#d55a34"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </com.example.potoyang.bikelock.MyView.FoldingLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/life_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/life_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/rect_white_bg">
+
+            <ImageView
+                android:id="@+id/life_icon"
+                android:layout_width="17dp"
+                android:layout_height="26dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dp"
+                android:background="@drawable/service_life_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="45dp"
+                android:text="发现周边"
+                android:textColor="#4b4b47"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/life_arrow"
+                android:layout_width="12dp"
+                android:layout_height="6dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/service_arrow_down"
+                android:tag="service_arrow" />
+
+        </RelativeLayout>
+
+        <com.example.potoyang.bikelock.MyView.FoldingLayout
+            android:id="@+id/life_item"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:tag="service_item">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="135dp"
+                android:background="#ffc14c"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="美食"
+                        android:textColor="#a65600"
+                        android:textSize="13dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="酒店"
+                        android:textColor="#a65600"
+                        android:textSize="13dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="休闲娱乐"
+                        android:textColor="#a65600"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="美食榜单"
+                        android:textColor="#a65600"
+                        android:textSize="13dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="车主服务"
+                        android:textColor="#a65600"
+                        android:textSize="13dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="超市"
+                        android:textColor="#a65600"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="公交站"
+                        android:textColor="#a65600"
+                        android:textSize="13dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:text="ATM"
+                        android:textColor="#a65600"
+                        android:textSize="13dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="29dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/service_btn_bg"
+                        android:textColor="#a65600"
+                        android:textSize="13dp"
+                        android:visibility="invisible" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.example.potoyang.bikelock.MyView.FoldingLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible" />
+
+
+</LinearLayout>

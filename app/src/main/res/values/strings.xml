@@ -13,8 +13,8 @@
     <string name="btn_protocol_agree">同意</string>
     <string name="btn_protocol_disagree">不同意</string>
     <string name="tv_bottom01">Sport</string>
-    <string name="tv_bottom02">location</string>
-    <string name="tv_bottom03">info</string>
+    <string name="tv_bottom02">Location</string>
+    <string name="tv_bottom03">Info</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

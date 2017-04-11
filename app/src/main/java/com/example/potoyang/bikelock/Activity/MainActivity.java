@@ -138,7 +138,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 } else {
                     fmt.show(fg_info);
                 }
-                tv_title.setText("消息");
+                tv_title.setText("信息");
                 map_clear.setVisibility(View.INVISIBLE);
                 iv_bottom03.setImageResource(R.mipmap.ic_bottom03_press);
                 break;

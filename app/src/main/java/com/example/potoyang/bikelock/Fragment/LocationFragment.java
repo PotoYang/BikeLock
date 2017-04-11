@@ -17,19 +17,27 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.example.potoyang.bikelock.Bluetooth.BluetoothUnlockActivity;
 import com.example.potoyang.bikelock.R;
 import com.example.potoyang.bikelock.SendDataToServer;
 import com.example.potoyang.bikelock.view.satallite_view.SatelliteMenu;
 import com.example.potoyang.bikelock.view.satallite_view.SatelliteMenuItem;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,14 +46,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class LocationFragment extends Fragment {
 
     private String strlat, strlon;//向服务器发送的数据
 
     //一般控件声明
-    private TextView tv_lon, tv_lat;
+    private TextView tv_lon, tv_lat, tv_biaoji;
     private Button btn_location;
 
     private MapView mMapView = null;
@@ -55,6 +66,8 @@ public class LocationFragment extends Fragment {
     private LocationClient mLocationClient = null;
     private double mLatitude, mLongitude;
     boolean isFirstLoc = true;// 是否首次定位
+
+    private HashMap<String, String> map = new HashMap<>();
 
     //卫星菜单
     private SatelliteMenu satelliteMenu = null;
@@ -78,7 +91,14 @@ public class LocationFragment extends Fragment {
 
             public void eventOccured(int id) {
                 switch (id) {
-                    case 1:
+                    case 2:
+                        map = getMarker();
+                        if (!map.isEmpty()) {
+                            MarkMyBike(map);
+                        }
+                        break;
+
+                    case 3:
                         Intent intent = new Intent(view.getContext(), BluetoothUnlockActivity.class);
                         startActivity(intent);
                         break;
@@ -88,11 +108,54 @@ public class LocationFragment extends Fragment {
                 }
             }
         });
-
-        //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
-
         return view;
+    }
+
+    private HashMap<String, String> getMarker() {
+
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+        asyncHttpClient.get("http://192.168.1.108:8888/Train/mybikelocation.php", null,
+                new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        String getFormServer = new String(responseBody);
+                        try {
+                            JSONTokener jsonParse = new JSONTokener(getFormServer);
+                            JSONObject jsonArray = (JSONObject) jsonParse.nextValue();
+                            map.put("latitude", jsonArray.getString("latitude"));
+                            map.put("longitude", jsonArray.getString("longitude"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                    }
+                });
+        return map;
+    }
+
+    private void MarkMyBike(HashMap<String, String> map) {
+        final View view_biaoji = LayoutInflater.from(getContext()).inflate(R.layout.markermybike, null);
+
+        tv_biaoji = (TextView) view_biaoji.findViewById(R.id.tv_biaoji);
+
+        Marker marker;
+        tv_biaoji.setText("我的自行车");
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromView(view_biaoji);
+        LatLng latLngs = new LatLng(Double.valueOf(map.get("latitude")), Double.valueOf(map.get("longitude")));
+        OverlayOptions overlayMarker = new MarkerOptions()
+                .position(latLngs)
+                .icon(bitmap);
+        marker = (Marker) mBaiduMap.addOverlay(overlayMarker);
+
+        LatLng latLng = new LatLng(Double.valueOf(map.get("latitude")), Double.valueOf(map.get("longitude")));
+        MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(latLng);
+        mBaiduMap.animateMapStatus(msu);
+
     }
 
     /**
@@ -104,6 +167,7 @@ public class LocationFragment extends Fragment {
      * @Description: 初始化Data
      */
     private void initData(View view) {
+
         tv_lon = (TextView) view.findViewById(R.id.tv_lon);
         tv_lat = (TextView) view.findViewById(R.id.tv_lat);
         btn_location = (Button) view.findViewById(R.id.btn_location);

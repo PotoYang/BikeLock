@@ -11,4 +11,14 @@
     <color name="left_drawer_item_bg_pressed">#ff292929</color>
     <color name="left_drawer_item_bg_normal">#00000000</color>
     <color name="left_drawer_item_text_normal">#ffd4d4d4</color>
+
+
+    <color name="yellow">#303F9F</color>
+    <color name="red">#d4443d</color>
+    <color name="grey">#BDBDBD</color>
+    <color name="black">#000000</color>
+    <color name="color_one">#FDE4BB</color>
+    <color name="color_two">#FCD2A1</color>
+    <color name="color_three">#EF8273</color>
+
 </resources>

@@ -70,7 +70,7 @@
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/empty"
             android:paddingTop="0dp"
-            android:src="@mipmap/ic_bottom02_normal" />
+            android:src="@mipmap/ic_bottom03_normal" />
 
         <TextView
             android:layout_width="wrap_content"

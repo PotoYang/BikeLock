@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sat="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Activity.MapActivity">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,12 +35,11 @@
 
         <Button
             android:id="@+id/btn_location"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="50dp"
-            android:layout_marginEnd="50dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="20dp"
             android:background="@drawable/btn_location" />
 
         <com.example.potoyang.bikelock.view.satallite_view.SatelliteMenu
@@ -56,15 +53,6 @@
             sat:expandDuration="500"
             sat:satelliteDistance="170dp"
             sat:totalSpacingDegree="90" />
-
-        <Button
-            android:id="@+id/btn_get"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Get"
-            android:layout_alignBaseline="@+id/tv_loc"
-            android:layout_alignBottom="@+id/tv_loc"
-            android:layout_alignStart="@+id/btn_location" />
 
     </RelativeLayout>
 
